@@ -52,8 +52,8 @@ app.post('/', (req, res) => {
       const utterance = turnContext.activity.text;
       const senderId = turnContext.activity.from.id;
 
-      const responses = (await dialogflowClient.detectIntent(
-          utterance, senderId)).responseMessages;
+      const queryResult = await dialogflowClient.detectIntent(utterance, senderId);
+      const responses = queryResult.responseMessages;
 
       for (let response of responses) {
         if (response.message === 'text') {
